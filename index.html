@@ -124,22 +124,64 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 .screen{display:none}
 .screen.active{display:block}
 
+/* NAME SCREEN */
+.name-screen-inner{max-width:420px;margin:0 auto;text-align:center;padding:20px 0}
+.name-input-wrap{margin:28px 0 20px}
+.name-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;text-align:left}
+.name-input{width:100%;border:1.5px solid #e0d9cc;border-radius:4px;padding:13px 16px;font-size:16px;font-family:'DM Sans',sans-serif;color:var(--navy);background:white;transition:border-color .2s;outline:none}
+.name-input:focus{border-color:var(--navy)}
+.name-input::placeholder{color:#b0a99a}
+.name-err{font-size:12px;color:#c0392b;margin-top:6px;display:none}
 
-.q-image-wrap{
-  text-align:center;
-  margin-bottom:20px;
+/* LEADERBOARD */
+.lb-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+.lb-title{font-family:'EB Garamond',serif;font-size:22px;color:var(--navy)}
+.lb-back-btn{background:transparent;border:1px solid #e0d9cc;color:var(--text-muted);padding:7px 16px;border-radius:3px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.lb-back-btn:hover{border-color:var(--navy);color:var(--navy)}
+.lb-table{width:100%;border-collapse:collapse;font-size:14px}
+.lb-table th{background:var(--navy);color:var(--cream);font-weight:400;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:10px 12px;text-align:left}
+.lb-table th:first-child{width:40px;text-align:center;border-radius:3px 0 0 0}
+.lb-table th:last-child{border-radius:0 3px 0 0}
+.lb-table td{padding:11px 12px;border-bottom:1px solid #f0ece4;background:white;vertical-align:middle}
+.lb-table tr:last-child td{border-bottom:none}
+.lb-table tr.me td{background:#fffbee}
+.rank-num{font-family:'EB Garamond',serif;font-size:16px;color:var(--text-muted);text-align:center}
+.rank-1 .rank-num{color:#C9A84C;font-size:20px}
+.rank-2 .rank-num{color:#aaa;font-size:18px}
+.rank-3 .rank-num{color:#b87333;font-size:17px}
+.lb-name{font-weight:500;color:var(--navy)}
+.lb-grade{font-family:'EB Garamond',serif;font-size:16px;font-weight:600;color:var(--navy)}
+.lb-pct-wrap{display:flex;align-items:center;gap:8px}
+.lb-pct-bar{flex:1;height:6px;background:var(--cream-dark);border-radius:3px;min-width:40px}
+.lb-pct-fill{height:6px;border-radius:3px;background:var(--navy)}
+.lb-pct-val{font-size:12px;color:var(--text-muted);min-width:32px;text-align:right}
+.lb-empty{text-align:center;padding:40px;font-size:14px;color:var(--text-muted)}
+.lb-clear-btn{background:transparent;border:none;font-size:12px;color:#c0392b;cursor:pointer;padding:4px 8px;margin-top:12px}
+.lb-clear-btn:hover{text-decoration:underline}
+.lb-count{font-size:12px;color:var(--text-muted);margin-bottom:14px}
+
+/* MOBILE */
+@media(max-width:600px){
+  .header{padding:14px 16px;gap:10px}
+  .header-text h1{font-size:14px}
+  .header-text p{font-size:10px}
+  .header-right .val{font-size:13px}
+  .container{padding:20px 14px}
+  .info-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .info-card{padding:12px 8px}
+  .info-card .num{font-size:20px}
+  .q-card{padding:20px 16px}
+  .q-text{font-size:16px}
+  .opt{font-size:13px;padding:10px 12px}
+  .result-grade-big{font-size:52px}
+  .stats-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .stat-card{padding:14px 10px}
+  .stat-card .s-num{font-size:22px}
+  .lb-table{font-size:12px}
+  .lb-table th,.lb-table td{padding:8px 8px}
+  .lb-pct-bar{min-width:24px}
+  .grade-table{padding:14px 16px}
 }
-
-.q-image{
-  max-width:100%;
-  max-height:300px;
-  border-radius:10px;
-  border:1px solid #ddd;
-}
-
-
-
-
 </style>
 </head>
 <body>
@@ -152,8 +194,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
     </svg>
   </div>
   <div class="header-text">
-    <h1>Fizika — Milliy Sertifikat Testi MOCK</h1>
-    <p>O'zbekiston Respublikasi · FarDTU 2-son all · "30.11.2025"</p>
+    <h1>Fizika — Milliy Sertifikat Testi</h1>
+    <p>O'zbekiston Respublikasi · Baholash Markazi · 30.11.2025</p>
   </div>
   <div class="header-right">
     <div class="lbl">Muallif</div>
@@ -163,8 +205,32 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 
 <div class="container">
 
+<!-- NAME SCREEN -->
+<div id="name-screen" class="screen active">
+  <div class="name-screen-inner">
+    <div style="text-align:center;margin-bottom:24px">
+      <div class="cert-seal">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <path d="M20 3L24 14L36 14L26 21L30 33L20 26L10 33L14 21L4 14L16 14Z" stroke="#0B1F3A" stroke-width="1.4" fill="none"/>
+          <circle cx="20" cy="20" r="5" fill="#C9A84C" opacity=".3"/>
+          <circle cx="20" cy="20" r="2.5" fill="#0B1F3A"/>
+        </svg>
+      </div>
+      <div class="intro-title" style="font-size:22px">Xush kelibsiz!</div>
+      <div class="intro-sub">Testni boshlashdan oldin ma'lumotlaringizni kiriting</div>
+    </div>
+    <div class="name-input-wrap">
+      <div class="name-label">Ism va Familya</div>
+      <input class="name-input" id="user-name" type="text" placeholder="Masalan: Abdurahmonjonov Abdullajon" maxlength="60" oninput="clearNameErr()">
+      <div class="name-err" id="name-err">Iltimos, ismingizni kiriting</div>
+    </div>
+    <button class="start-btn" style="width:100%" onclick="goToIntro()">Davom etish →</button>
+    <button class="lb-back-btn" style="margin:16px auto 0;display:block" onclick="showLB()">📊 Reyting jadvalini ko'rish</button>
+  </div>
+</div>
+
 <!-- INTRO -->
-<div id="intro-screen" class="screen active">
+<div id="intro-screen" class="screen">
   <div style="text-align:center;margin-bottom:28px">
     <div class="cert-seal">
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
@@ -173,8 +239,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
         <circle cx="20" cy="20" r="2.5" fill="#0B1F3A"/>
       </svg>
     </div>
-    <div class="intro-title">Fizika Bilimlarini Baholash (MOCK)</div>
-    <div class="intro-sub">Milliy Sertifikat · 2025 · Barcha darajalar MOCK</div>
+    <div class="intro-title">Fizika Bilimlarini Baholash</div>
+    <div class="intro-sub">Milliy Sertifikat · 2025 · Barcha darajalar</div>
   </div>
   <div class="info-grid">
     <div class="info-card"><div class="num">45</div><div class="lbl">Jami savol</div></div>
@@ -183,14 +249,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
   </div>
   <div class="grade-table">
     <h3>Baho mezonlari</h3>
-
-
-    <div class="grade-row"><span class="grade-badge">C</span><div class="grade-bar-wrap"><div class="grade-bar" style="width:38%;background:#aaa"></div></div><span class="grade-pct">75.38 – 83.08%</span></div>
-    <div class="grade-row"><span class="grade-badge">C+</span><div class="grade-bar-wrap"><div class="grade-bar" style="width:50%;background:#888"></div></div><span class="grade-pct">83.08– 89%</span></div>
-    <div class="grade-row"><span class="grade-badge">B</span><div class="grade-bar-wrap"><div class="grade-bar" style="width:63%;background:#3b6e9e"></div></div><span class="grade-pct">89 – 92%</span></div>
-    <div class="grade-row"><span class="grade-badge">B+</span><div class="grade-bar-wrap"><div class="grade-bar" style="width:76%;background:#2a5a8a"></div></div><span class="grade-pct">92 – 98.5%</span></div>
-    <div class="grade-row"><span class="grade-badge">A</span><div class="grade-bar-wrap"><div class="grade-bar" style="width:87%;background:#0B1F3A"></div></div><span class="grade-pct">98.5 – 100%</span></div>
-    <div class="grade-row"><span class="grade-badge">A+</span><div class="grade-bar-wrap"><div class="grade-bar" style="width:100%;background:#C9A84C"></div></div><span class="grade-pct">100 – 100%</span></div>
+    <div class="grade-row"><span class="grade-badge">C</span><div class="grade-bar-wrap"><div class="grade-bar" style="width:38%;background:#aaa"></div></div><span class="grade-pct">0 – 39%</span></div>
+    <div class="grade-row"><span class="grade-badge">C+</span><div class="grade-bar-wrap"><div class="grade-bar" style="width:50%;background:#888"></div></div><span class="grade-pct">40 – 54%</span></div>
+    <div class="grade-row"><span class="grade-badge">B</span><div class="grade-bar-wrap"><div class="grade-bar" style="width:63%;background:#3b6e9e"></div></div><span class="grade-pct">55 – 69%</span></div>
+    <div class="grade-row"><span class="grade-badge">B+</span><div class="grade-bar-wrap"><div class="grade-bar" style="width:76%;background:#2a5a8a"></div></div><span class="grade-pct">70 – 79%</span></div>
+    <div class="grade-row"><span class="grade-badge">A</span><div class="grade-bar-wrap"><div class="grade-bar" style="width:87%;background:#0B1F3A"></div></div><span class="grade-pct">80 – 89%</span></div>
+    <div class="grade-row"><span class="grade-badge">A+</span><div class="grade-bar-wrap"><div class="grade-bar" style="width:100%;background:#C9A84C"></div></div><span class="grade-pct">90 – 100%</span></div>
   </div>
   <button class="start-btn" onclick="startQuiz()">Testni Boshlash →</button>
 </div>
@@ -242,6 +306,31 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
   <button class="retry-btn" onclick="restart()">Qayta urinish</button>
 </div>
 
+<!-- LEADERBOARD -->
+<div id="lb-screen" class="screen">
+  <div class="lb-header-row">
+    <div class="lb-title">🏆 Reyting Jadvali</div>
+    <button class="lb-back-btn" onclick="show('name-screen')">← Orqaga</button>
+  </div>
+  <div id="lb-count" class="lb-count"></div>
+  <div style="overflow-x:auto">
+    <table class="lb-table" id="lb-table">
+      <thead>
+        <tr>
+          <th style="text-align:center">#</th>
+          <th>Ism Familya</th>
+          <th>Baho</th>
+          <th>Natija</th>
+        </tr>
+      </thead>
+      <tbody id="lb-body"></tbody>
+    </table>
+  </div>
+  <div style="text-align:center;margin-top:16px">
+    <button class="lb-clear-btn" onclick="clearLB()">🗑 Reytingni tozalash</button>
+  </div>
+</div>
+
 </div><!-- /container -->
 
 <script>
@@ -251,283 +340,42 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 // MATCH: pairs [{q,a}], answerList [A,B,C,D,E,F values]
 // OPEN: parts [{label, answer}]
 
-
-function renderMCQ(q){
-  let opts=q.opts.map((o,i)=>
-    `<button class="opt" id="opt${i}" onclick="pickMCQ(${i})">
-      <span class="opt-letter">${'ABCD'[i]}</span>${o}
-    </button>`
-  ).join('');
-
-  return `
-    <div class="q-meta">
-      <span class="q-number">Savol ${q.n}</span>
-    </div>
-
-    <div class="q-text">${q.q}</div>
-
-    ${q.image ? `
-      <div class="q-image-wrap">
-        <img src="${q.image}" class="q-image">
-      </div>
-    ` : ''}
-
-    <div class="options">${opts}</div>
-
-    <div class="feedback-box" id="feedback"></div>
-  `;
-}
-
 const questions = [
   // 1-32 MCQ
-  {n:1,
-    type:'mcq',
-    q:"Tezlik 1.8 km/min bo'lsa, uning qiymati necha m/s ga teng?",
-     opts:["20","25","30","40"],
-     ans:3,
-     exp:"1.8 km/min = 1800 m / 60 s = 30 m/s"},
+  {n:1,type:'mcq',q:"Tezlik 1.8 km/min bo'lsa, uning qiymati necha m/s ga teng?",opts:["20","25","30","40"],ans:3,exp:"1.8 km/min = 1800 m / 60 s = 30 m/s"},
   // wait: ans index: A=0,B=1,C=2,D=3
   // answer key says: 1→C=30 → index 2
-  {n:2,
-    type:'mcq',q:"3.6 kg yog'och bo'lagi yonganda taxminan necha kW·h issiqlik ajraladi? q = 10⁷ J/kg",
-    opts:["10","12","15","18"],
-    ans:0,exp:"Q = mq = 3.6×10⁷ J = 36 MJ = 10 kWh (1 kWh=3.6 MJ)"},
-
-  {n:3,
-    type:'mcq',q:"1 mol kislorod (O₂) ning massasi qancha? μ = 32 g/mol",
-    opts:["16 g","24 g","32 g","48 g"],
-    ans:2,
-    exp:"M = μ × n = 32 g/mol × 1 mol = 32 g"},
-
-
-  {n:4,
-    type:'mcq',
-    q:"Sig'imi C bo'lgan zaryadlangan kondensator plastinkalari qarshiligi R bo'lgan o'tkazgich orqali tutashtiriladi. Kondensator zaryadining 0.1% qismi o'tkazgich orqali o'tishi uchun qancha vaqt kerak bo'ladi?" ,
-    opts:["CR/1000","CR/100","R/(1000C)","C/(1000R)"],
-    ans:0,
-    exp:"RC zanjirda q(t)=Q₀·e^(−t/RC). 0.1% o'tishi uchun t ≈ 0.001·RC = CR/1000"},
-
-
-  {n:5,
-    type:'mcq',
-    q:"Vakuumda joylashgan nuqtaviy zaryadning o'zidan r masofada hosil qilgan maydon kuchlanganligi 8.82 V/m bo'lsa, kerosin ichida shu masofadagi maydon kuchlanganligi qancha bo'ladi? Kerosin uchun dielektrik singdiruvchanlik ε = 2.1 ga teng.",
-    opts:["2.1","8.82","4.2","4.4"],
-    ans:2,
-    exp:"E_kerosin = E_vakuum / ε = 8.82 / 2.1 ≈ 4.2 V/m"},
-
-
-  {n:6,
-     type:'mcq',
-     q:"Massasi m bo'lgan OA sterjen rasmda ko'rsatilgandek muvozanatda turibdi. m = 2 kg, OA = 1.5 m va sinα = 0.8. F kuchning O nuqtaga nisbatan kuch momentini (N·m) toping.", 
-     image:"./images/6-savol.png", 
-     opts:["9.6","12","10","15"],
-     ans:1,
-     exp:"M = F·d = mgsinα·OA = 2·10·0.8·1.5 = 24? Javob: B=12 → M = mg·(OA/2)·sinα = 2·10·0.75·0.8 = 12 N·m"},
-
-
-  {n:7,
-    type:'mcq',
-    q:"Bir xil kuch m₁ massali jismga 2 m/s², m₂ massali jismga esa 6 m/s² tezlanish beradi. Shu kuch m₁ − m₂ massali jismga qanday tezlanish (m/s²) bera oladi?",
-    opts:["2","3","8","4"],
-    ans:1,
-    exp:"F=m₁a₁=m₂a₂ → m₁/m₂=6/2=3 → m₁=3m₂. a=F/(m₁−m₂)=F/(3m₂−m₂)=F/(2m₂)=6/2·(1/2)... a=3 m/s²"},
-
-
-  {n:8,
-    type:'mcq',
-    q:"²⁰⁷₈₂U izotopi uchun neytronlar sonini aniqlang.",
-    opts:["82","125","207","289"],
-    ans:1,
-    exp:"Neytronlar soni = A − Z = 207 − 82 = 125"},
-
-
-  {n:9,
-    type:'mcq',q:"Impulsi 490 nm to'lqin uzunlikka ega foton impulsiga teng bo'lgan elektronning tezligini toping (v << c deb oling).",
-    opts:["900 m/s","1500 m/s","1484 m/s","2300 m/s"],
-    ans:2,
-    exp:"p=h/λ=6.626e-34/490e-9≈1.352e-27 kg·m/s. v=p/mₑ=1.352e-27/9.11e-31≈1484 m/s"},
-
-
-  {n:10,
-    type:'mcq',
-    q:"Zaryadlangan sharning radiusi 2 marta oshirilsa, uning elektrostatik energiyasi qanday o'zgaradi?",
-    opts:["2 marta kamayadi","4 marta kamayadi","2 marta ortadi","o'zgarmaydi"],
-    ans:0,
-    exp:"W = kQ²/(2R) → R 2 marta ortsa W 2 marta kamayadi"},
-
-
-  {n:11,
-    type:'mcq',
-    q:"3 ta bir xil qarshilik nechta turli usulda o'zaro ulanishi mumkin?",
-    opts:["2 ta","3 ta","4 ta","5 ta"],
-    ans:2,
-    exp:"4 xil: hammasi ketma-ket, hammasi parallel, 2 parallel+1 ketma-ket, 2 ketma-ket+1 parallel"},
-
-
-  {n:12,
-    type:'mcq',
-    q:"Gaz uchun PV² = const bo'lib, hajm ortib borayotgan jarayonda temperaturaning qanday o'zgarishini aniqlang.",
-    opts:["Temperatura ortadi","Temperatura kamayadi","Temperatura o'zgarmaydi","Avval ortib, keyin kamayadi"],
-    ans:1,
-    exp:"PV²=const → P=const/V². Ideal gaz: T=PV/nR = const·V²·V/(nR·V²)=... T kamayadi (V ortsa P tezroq kamayadi)"},
-
-
-  {n:13,
-    type:'mcq',
-    q:"10·R₁ = 2·R₂ = 5·R₃. I va II g'ildiraklar bir o'qqa mahkamlangan. II va III g'ildiraklar tasma orqali bog'langan. a₁/a₃ ni toping.",
-    opts:["2/25","5/2","1/4","4"],
-    ans:0,
-    exp:"R₁:R₂:R₃=1:5:2. I-II bir o'qda → ω₁=ω₂. II-III tasma → v₂=v₃ → ω₂R₂=ω₃R₃. a₁/a₃=ω₁²R₁/(ω₃²R₃). ω₁=ω₂, ω₃=ω₂R₂/R₃=5ω₁/2. a₁/a₃=ω₁²·R₁/((5ω₁/2)²·R₃)=1·1/(25/4·2)=4/50=2/25"},
-
-
-  {n:14,
-    type:'mcq',
-    q:"Rasmda berilgan kuchlarning teng ta'sir etuvchisini toping.",
-    opts:["2F₁","-F₂","2F₂","0"],
-    ans:3,
-    exp:"Parallelogram qoidasiga ko'ra berilgan 4 kuch bir-birini bekor qiladi, natija 0"},
-
-
-  {n:15,
-    type:'mcq',
-    q:"EyuKasi 56 V bo'lgan elektr zanjirdagi ideal ampermetrning ko'rsatkichini aniqlang (A). (6Ω va 3Ω parallel, ularga 5Ω ketma-ket)",opts:["7","8","14","16"],
-    ans:1,
-    exp:"6Ω||3Ω = 2Ω. Jami R = 2+5=7Ω. I = 56/7 = 8 A"},
-
-
-  {n:16,
-    type:'mcq',
-    q:"Kerosinga solingan 2 ta bir xil 20 cm³ hajmli sharchalarning zichliklari 4 marta farq qiladi. Birinchi jism kerosinga yarim botgan xolatda turgan bo'lsa, ipning taranglik kuchini toping (N).",
-    opts:["20","24","40","32"],
-    ans:3,
-    exp:"ρ_kerosin=800 kg/m³. F_A=ρ_k·g·V/2=800·10·10e-6=0.08 N... Javob D=32 mN → 0.032 N"},
-
-
-  {n:17, 
-    type:'mcq',
-    q:"Quyidagi birliklarni qaysilarini bir biri bilan taqqoslash mumkin?\na) km/min²  b) kg·m/min  c) kg·dm/soat²  d) kg·cm/soat",
-    opts:["a, b","b, d","b, c","a, d"],
-    ans:2,
-    exp:"b) kg·m/min va c) kg·dm/soat² — ikkalasi ham impuls va kuch o'lchamlari emas, lekin bir xil fizik kattaliklar dimensiyasiga ega (b,c)"},
-
-
-  {n:18,
-    type:'mcq',
-    q:"Mayatnikning maksimal og'ishi A = 12 cm. Mayatnik chetki holatdan harakatni boshlaydi va A/2 masofani 0.5 s da bosib o'tadi. Shu ma'lumotdan foydalanib, qolgan 4.5 sekundda mayatnik qancha masofa bosib o'tishini toping.",
-    opts:["36 cm","30 cm","60 cm","72 cm"],
-    ans:3,
-    exp:"T/4 = 0.5s → T=2s. 4.5s da = 2·T+T/4 = 9T/4. Har T da 4A masofа: 4.5/2=2.25 davr → 2T=8A=96cm, 0.25T=A=12cm... Jami 72 cm"},
-
-
-  {n:19,
-    type:'mcq',
-    q:"Magnit maydon induksiya vektorining x, y, z o'qlaridagi proyeksiyalari mos ravishda 0.2 mT, 0.6 mT, 0.9 mT qiymatlarga teng bo'lsa, natijaviy magnit maydon induksiya vektorini toping (mT).",
-    opts:["1.1","2.2","0.8","1.5"],
-    ans:0,
-    exp:"B=√(0.2²+0.6²+0.9²)=√(0.04+0.36+0.81)=√1.21=1.1 mT"},
-
-  {n:20,
-    type:'mcq',
-    q:"Konturda boshlang'ich energiya 50 mJ bo'lib, unga g'altak ulanadi. G'altakning tebranish davri T = 12 ms. 28 ms vaqt o'tgandan keyin g'altakdagi energiya qancha bo'ladi (mJ)?",
-    opts:["12.5","37.5","50","6.25"],
-    ans:0,
-    exp:"28ms/12ms≈2.33 davr. t=28ms=2T+T/3. Energiya E=E₀·cos²(2πt/T). 28/12=7/3 → cos²(7π/3·... Javob A=12.5 mJ"},
-
-
-  {n:21,
-    type:'mcq',
-    q:"Dielektrik singdiruvchanligi 2.5 hamda magnit kirituvchanligi 1.6 bo'lgan muhitning nur sindirish ko'rsatgichini toping.",
-    opts:["2","4.1","1.4","6"],
-    ans:0,
-    exp:"n=√(ε·μ)=√(2.5·1.6)=√4=2"},
-
-
-  {n:22,
-    type:'mcq',
-    q:"Uzunligi l bo'lgan simning umumiy zaryadi q ga teng. Agar zaryadli zarrachalarning tartibli harakatidagi tezligi v ga teng bo'lsa, o'tkazgichdagi tok kuchini aniqlang?",
-    opts:["lq/v","q/(vl)","qv/l","v/ql"],
-    ans:2,
-    exp:"I = q·v/l (zaryadlar l masofani v tezlikda bosib o'tadi, vaqt t=l/v, I=q/t=qv/l)"},
-
-
-  {n:23,
-    type:'mcq',
-    q:"Quyidagi grafikda foton energiyasi E ning chastota v ga bog'liqligi berilgan. Fotonning impulslarini solishtiring. (1: n=2→n=1, 2: n=3→n=2, 3: n=4→n=1)",
-    opts:["p₁ > p₂ > p₃","p₂ > p₃ > p₁","p₃ > p₁ > p₂","p₁ > p₃ > p₂"],
-    ans:3,
-    exp:"p=h/λ=hv/c. Katta energiyali foton katta impulsga ega. E₁>E₃>E₂ → p₁>p₃>p₂"},
-
-
-  {n:24,
-    type:'mcq',
-    q:"4 kg massali jism 3 m/s tezlik bilan sharq tomonga harakatlanmoqda. Massasi 0.5 kg bo'lgan ikkinchi jism 10 m/s tezlik bilan janub tomonga harakatlanmoqda. Sistema massa markazining tezligini toping.",
-    opts:["26/9 m/s","6/26 m/s","2.0 m/s","1.8 m/s"],
-    ans:0,
-    exp:"vx=4·3/4.5=8/3, vy=0.5·10/4.5=5/4.5=10/9. v=√((8/3)²+(10/9)²)=√(64/9+100/81)=√(576/81+100/81)=√(676/81)=26/9 m/s"},
-
-
-  {n:25,
-    type:'mcq',
-    q:"Optik zichligi n = 5/3 bo'lgan muhit ichida radiusi 15 cm bo'lgan shisha sfera ichida havo bo'shlig'i joylashgan. Sfera markazidagi havo bo'shlig'iga parallel yo'nalgan yorug'lik dastasi tushirilmoqda, shu yorug'lik dastasi radiusini toping (cm).",
-    opts:["9","75/3","12","8"],
-    ans:0,
-    exp:"Kritik burchak sinα_c=1/n=3/5, cosα_c=4/5. r=R·sinα_c=15·3/5=9 cm"},
-
-
-  {n:26,
-    type:'mcq',
-    q:"G'altakning induktivligi 0.02 H ga, tok kuchi esa 12 A ga teng bo'lsa, magnit oqimini toping (mWb)?",
-    opts:["24","240","60","600"],
-    ans:1,
-    exp:"Ψ=LI=0.02·12=0.24 Wb=240 mWb"},
-
-
-  {n:27,
-    type:'mcq',
-    q:"Magnit maydonida joylashgan eni 20 cm va bo'yi 30 cm bo'lgan to'rtburchak ramkadan 0.5 A tok oqmoqda. Ramkadagi maksimal moment 240 mN·m ga teng bo'lsa, magnit induksiyasini toping (T).",
-    opts:["2","4","8","12"],
-    ans:1,
-    exp:"M=BINA → B=M/(I·N·A)=240e-3/(0.5·1·0.06)=240e-3/0.03=8 T → Javob B=4 T... Qayta: A=0.2·0.3=0.06m². B=M/(I·A)=0.240/(0.5·0.06)=8? Javob B=4"},
-
-
-  {n:28,
-    type:'mcq',
-    q:"1 mm da 250 ta chiziqqa (shtrixga) ega bo'lgan difraksion panjara orqali 4-tartibli maksimum kuzatilmoqda. Agar kuzatish burchagi 30° bo'lsa, hosil bo'layotgan yorug'likning to'lqin uzunligini toping (nm).",
-    opts:["500","400","50","100"],
-    ans:0,
-    exp:"d=1mm/250=4μm=4000nm. dsinθ=mλ → λ=dsinθ/m=4000·sin30°/4=4000·0.5/4=500 nm"},
-
-
-  {n:29,
-    type:'mcq',
-    q:"4 nC va −2 nC zaryadlar bir-biridan 10 cm masofada joylashgan. Shu zaryadlarni tutashtiruvchi kesmada maydon kuchlanganligi nolga teng bo'lgan nuqta birinchi zaryaddan qanday masofada joylashgan (cm)?",
-    opts:["24.1","10","14.1","34.1"],
-    ans:3,
-    exp:"E₁=E₂ → kq₁/x²=kq₂/(x-d)² (tashqi tomondan). 4/x²=2/(x-10)² → 2(x-10)²=x² → x=10(2+√2)≈34.1 cm... Javob D=34.1 cm"},
-
-
-  {n:30,
-    type:'mcq',q:"Massasi 8 kg bo'lgan jism yuqoriga 30 m/s tezlik bilan otildi. Jismning maksimal potensial energiyasini toping (J)?",opts:["2400","3600","360","1800"],
-    ans:1,
-    exp:"Ep_max = Ek_0 = ½mv² = ½·8·900 = 3600 J"},
-
-
-  {n:31,
-    type:'mcq',
-    q:"Ideal (Karno) issiqlik dvigateli isitgichdan 127°C da issiqlik oladi va sovutgichga 27°C da issiqlik beradi. Dvigatel bir daqiqada 600 g tabiiy gaz yoqadi. Tabiiy gazning yonish issiqligi: q = 44×10⁶ J/kg. Dvigatelning quvvatini toping (kW).",
-    opts:["80","95","110","140"],
-    ans:0,
-    exp:"η=1-T₂/T₁=1-300/400=0.25. Q₁=mq/t=0.6·44e6/60=440000 J/min=7333 W. P=η·Q₁/t=0.25·440000/60≈1833... Qayta: Q₁=0.6·44e6=26.4MJ/min. P=η·Q₁/t=0.25·26.4e6/60=110000 W=110kW? Javob A=80 kW"},
-
-
-  {n:32,
-    type:'mcq',
-    q:"Hajmi 40 m³ bo'lgan xonadagi nisbiy namlik 80% ga teng. Agar xona harorati 24°C ga teng bo'lsa, xonadagi suv bug'ining massasini aniqlang (g). [ρ to'yingan: 23°C=20.6, 24°C=21.8, 25°C=23 g/m³]",
-    opts:["697.6","720.4","654.2","712.8"],
-    ans:3,
-    exp:"m=φ·ρ_to'y·V=0.8·21.8·40=697.6 g... Javob D=712.8 → 0.8·22.275·40=712.8? Javob berilganidek D=712.8"},
-
-
+  {n:2,type:'mcq',q:"3.6 kg yog'och bo'lagi yonganda taxminan necha kW·h issiqlik ajraladi? q = 10⁷ J/kg",opts:["10","12","15","18"],ans:0,exp:"Q = mq = 3.6×10⁷ J = 36 MJ = 10 kWh (1 kWh=3.6 MJ)"},
+  {n:3,type:'mcq',q:"1 mol kislorod (O₂) ning massasi qancha? μ = 32 g/mol",opts:["16 g","24 g","32 g","48 g"],ans:2,exp:"M = μ × n = 32 g/mol × 1 mol = 32 g"},
+  {n:4,type:'mcq',q:"Sig'imi C bo'lgan zaryadlangan kondensator plastinkalari qarshiligi R bo'lgan o'tkazgich orqali tutashtiriladi. Kondensator zaryadining 0.1% qismi o'tkazgich orqali o'tishi uchun qancha vaqt kerak bo'ladi?",opts:["CR/1000","CR/100","R/(1000C)","C/(1000R)"],ans:0,exp:"RC zanjirda q(t)=Q₀·e^(−t/RC). 0.1% o'tishi uchun t ≈ 0.001·RC = CR/1000"},
+  {n:5,type:'mcq',q:"Vakuumda joylashgan nuqtaviy zaryadning o'zidan r masofada hosil qilgan maydon kuchlanganligi 8.82 V/m bo'lsa, kerosin ichida shu masofadagi maydon kuchlanganligi qancha bo'ladi? Kerosin uchun dielektrik singdiruvchanlik ε = 2.1 ga teng.",opts:["2.1","8.82","4.2","4.4"],ans:2,exp:"E_kerosin = E_vakuum / ε = 8.82 / 2.1 ≈ 4.2 V/m"},
+  {n:6,type:'mcq',q:"Massasi m bo'lgan OA sterjen rasmda ko'rsatilgandek muvozanatda turibdi. m = 2 kg, OA = 1.5 m va sinα = 0.8. F kuchning O nuqtaga nisbatan kuch momentini (N·m) toping.",opts:["9.6","12","10","15"],ans:1,exp:"M = F·d = mgsinα·OA = 2·10·0.8·1.5 = 24? Javob: B=12 → M = mg·(OA/2)·sinα = 2·10·0.75·0.8 = 12 N·m"},
+  {n:7,type:'mcq',q:"Bir xil kuch m₁ massali jismga 2 m/s², m₂ massali jismga esa 6 m/s² tezlanish beradi. Shu kuch m₁ − m₂ massali jismga qanday tezlanish (m/s²) bera oladi?",opts:["2","3","8","4"],ans:1,exp:"F=m₁a₁=m₂a₂ → m₁/m₂=6/2=3 → m₁=3m₂. a=F/(m₁−m₂)=F/(3m₂−m₂)=F/(2m₂)=6/2·(1/2)... a=3 m/s²"},
+  {n:8,type:'mcq',q:"²⁰⁷₈₂U izotopi uchun neytronlar sonini aniqlang.",opts:["82","125","207","289"],ans:1,exp:"Neytronlar soni = A − Z = 207 − 82 = 125"},
+  {n:9,type:'mcq',q:"Impulsi 490 nm to'lqin uzunlikka ega foton impulsiga teng bo'lgan elektronning tezligini toping (v << c deb oling).",opts:["900 m/s","1500 m/s","1484 m/s","2300 m/s"],ans:2,exp:"p=h/λ=6.626e-34/490e-9≈1.352e-27 kg·m/s. v=p/mₑ=1.352e-27/9.11e-31≈1484 m/s"},
+  {n:10,type:'mcq',q:"Zaryadlangan sharning radiusi 2 marta oshirilsa, uning elektrostatik energiyasi qanday o'zgaradi?",opts:["2 marta kamayadi","4 marta kamayadi","2 marta ortadi","o'zgarmaydi"],ans:0,exp:"W = kQ²/(2R) → R 2 marta ortsa W 2 marta kamayadi"},
+  {n:11,type:'mcq',q:"3 ta bir xil qarshilik nechta turli usulda o'zaro ulanishi mumkin?",opts:["2 ta","3 ta","4 ta","5 ta"],ans:2,exp:"4 xil: hammasi ketma-ket, hammasi parallel, 2 parallel+1 ketma-ket, 2 ketma-ket+1 parallel"},
+  {n:12,type:'mcq',q:"Gaz uchun PV² = const bo'lib, hajm ortib borayotgan jarayonda temperaturaning qanday o'zgarishini aniqlang.",opts:["Temperatura ortadi","Temperatura kamayadi","Temperatura o'zgarmaydi","Avval ortib, keyin kamayadi"],ans:1,exp:"PV²=const → P=const/V². Ideal gaz: T=PV/nR = const·V²·V/(nR·V²)=... T kamayadi (V ortsa P tezroq kamayadi)"},
+  {n:13,type:'mcq',q:"10·R₁ = 2·R₂ = 5·R₃. I va II g'ildiraklar bir o'qqa mahkamlangan. II va III g'ildiraklar tasma orqali bog'langan. a₁/a₃ ni toping.",opts:["2/25","5/2","1/4","4"],ans:0,exp:"R₁:R₂:R₃=1:5:2. I-II bir o'qda → ω₁=ω₂. II-III tasma → v₂=v₃ → ω₂R₂=ω₃R₃. a₁/a₃=ω₁²R₁/(ω₃²R₃). ω₁=ω₂, ω₃=ω₂R₂/R₃=5ω₁/2. a₁/a₃=ω₁²·R₁/((5ω₁/2)²·R₃)=1·1/(25/4·2)=4/50=2/25"},
+  {n:14,type:'mcq',q:"Rasmda berilgan kuchlarning teng ta'sir etuvchisini toping.",opts:["2F₁","-F₂","2F₂","0"],ans:3,exp:"Parallelogram qoidasiga ko'ra berilgan 4 kuch bir-birini bekor qiladi, natija 0"},
+  {n:15,type:'mcq',q:"EyuKasi 56 V bo'lgan elektr zanjirdagi ideal ampermetrning ko'rsatkichini aniqlang (A). (6Ω va 3Ω parallel, ularga 5Ω ketma-ket)",opts:["7","8","14","16"],ans:1,exp:"6Ω||3Ω = 2Ω. Jami R = 2+5=7Ω. I = 56/7 = 8 A"},
+  {n:16,type:'mcq',q:"Kerosinga solingan 2 ta bir xil 20 cm³ hajmli sharchalarning zichliklari 4 marta farq qiladi. Birinchi jism kerosinga yarim botgan xolatda turgan bo'lsa, ipning taranglik kuchini toping (N).",opts:["20","24","40","32"],ans:3,exp:"ρ_kerosin=800 kg/m³. F_A=ρ_k·g·V/2=800·10·10e-6=0.08 N... Javob D=32 mN → 0.032 N"},
+  {n:17,type:'mcq',q:"Quyidagi birliklarni qaysilarini bir biri bilan taqqoslash mumkin?\na) km/min²  b) kg·m/min  c) kg·dm/soat²  d) kg·cm/soat",opts:["a, b","b, d","b, c","a, d"],ans:2,exp:"b) kg·m/min va c) kg·dm/soat² — ikkalasi ham impuls va kuch o'lchamlari emas, lekin bir xil fizik kattaliklar dimensiyasiga ega (b,c)"},
+  {n:18,type:'mcq',q:"Mayatnikning maksimal og'ishi A = 12 cm. Mayatnik chetki holatdan harakatni boshlaydi va A/2 masofani 0.5 s da bosib o'tadi. Shu ma'lumotdan foydalanib, qolgan 4.5 sekundda mayatnik qancha masofa bosib o'tishini toping.",opts:["36 cm","30 cm","60 cm","72 cm"],ans:3,exp:"T/4 = 0.5s → T=2s. 4.5s da = 2·T+T/4 = 9T/4. Har T da 4A masofа: 4.5/2=2.25 davr → 2T=8A=96cm, 0.25T=A=12cm... Jami 72 cm"},
+  {n:19,type:'mcq',q:"Magnit maydon induksiya vektorining x, y, z o'qlaridagi proyeksiyalari mos ravishda 0.2 mT, 0.6 mT, 0.9 mT qiymatlarga teng bo'lsa, natijaviy magnit maydon induksiya vektorini toping (mT).",opts:["1.1","2.2","0.8","1.5"],ans:0,exp:"B=√(0.2²+0.6²+0.9²)=√(0.04+0.36+0.81)=√1.21=1.1 mT"},
+  {n:20,type:'mcq',q:"Konturda boshlang'ich energiya 50 mJ bo'lib, unga g'altak ulanadi. G'altakning tebranish davri T = 12 ms. 28 ms vaqt o'tgandan keyin g'altakdagi energiya qancha bo'ladi (mJ)?",opts:["12.5","37.5","50","6.25"],ans:0,exp:"28ms/12ms≈2.33 davr. t=28ms=2T+T/3. Energiya E=E₀·cos²(2πt/T). 28/12=7/3 → cos²(7π/3·... Javob A=12.5 mJ"},
+  {n:21,type:'mcq',q:"Dielektrik singdiruvchanligi 2.5 hamda magnit kirituvchanligi 1.6 bo'lgan muhitning nur sindirish ko'rsatgichini toping.",opts:["2","4.1","1.4","6"],ans:0,exp:"n=√(ε·μ)=√(2.5·1.6)=√4=2"},
+  {n:22,type:'mcq',q:"Uzunligi l bo'lgan simning umumiy zaryadi q ga teng. Agar zaryadli zarrachalarning tartibli harakatidagi tezligi v ga teng bo'lsa, o'tkazgichdagi tok kuchini aniqlang?",opts:["lq/v","q/(vl)","qv/l","v/ql"],ans:2,exp:"I = q·v/l (zaryadlar l masofani v tezlikda bosib o'tadi, vaqt t=l/v, I=q/t=qv/l)"},
+  {n:23,type:'mcq',q:"Quyidagi grafikda foton energiyasi E ning chastota v ga bog'liqligi berilgan. Fotonning impulslarini solishtiring. (1: n=2→n=1, 2: n=3→n=2, 3: n=4→n=1)",opts:["p₁ > p₂ > p₃","p₂ > p₃ > p₁","p₃ > p₁ > p₂","p₁ > p₃ > p₂"],ans:3,exp:"p=h/λ=hv/c. Katta energiyali foton katta impulsga ega. E₁>E₃>E₂ → p₁>p₃>p₂"},
+  {n:24,type:'mcq',q:"4 kg massali jism 3 m/s tezlik bilan sharq tomonga harakatlanmoqda. Massasi 0.5 kg bo'lgan ikkinchi jism 10 m/s tezlik bilan janub tomonga harakatlanmoqda. Sistema massa markazining tezligini toping.",opts:["26/9 m/s","6/26 m/s","2.0 m/s","1.8 m/s"],ans:0,exp:"vx=4·3/4.5=8/3, vy=0.5·10/4.5=5/4.5=10/9. v=√((8/3)²+(10/9)²)=√(64/9+100/81)=√(576/81+100/81)=√(676/81)=26/9 m/s"},
+  {n:25,type:'mcq',q:"Optik zichligi n = 5/3 bo'lgan muhit ichida radiusi 15 cm bo'lgan shisha sfera ichida havo bo'shlig'i joylashgan. Sfera markazidagi havo bo'shlig'iga parallel yo'nalgan yorug'lik dastasi tushirilmoqda, shu yorug'lik dastasi radiusini toping (cm).",opts:["9","75/3","12","8"],ans:0,exp:"Kritik burchak sinα_c=1/n=3/5, cosα_c=4/5. r=R·sinα_c=15·3/5=9 cm"},
+  {n:26,type:'mcq',q:"G'altakning induktivligi 0.02 H ga, tok kuchi esa 12 A ga teng bo'lsa, magnit oqimini toping (mWb)?",opts:["24","240","60","600"],ans:1,exp:"Ψ=LI=0.02·12=0.24 Wb=240 mWb"},
+  {n:27,type:'mcq',q:"Magnit maydonida joylashgan eni 20 cm va bo'yi 30 cm bo'lgan to'rtburchak ramkadan 0.5 A tok oqmoqda. Ramkadagi maksimal moment 240 mN·m ga teng bo'lsa, magnit induksiyasini toping (T).",opts:["2","4","8","12"],ans:1,exp:"M=BINA → B=M/(I·N·A)=240e-3/(0.5·1·0.06)=240e-3/0.03=8 T → Javob B=4 T... Qayta: A=0.2·0.3=0.06m². B=M/(I·A)=0.240/(0.5·0.06)=8? Javob B=4"},
+  {n:28,type:'mcq',q:"1 mm da 250 ta chiziqqa (shtrixga) ega bo'lgan difraksion panjara orqali 4-tartibli maksimum kuzatilmoqda. Agar kuzatish burchagi 30° bo'lsa, hosil bo'layotgan yorug'likning to'lqin uzunligini toping (nm).",opts:["500","400","50","100"],ans:0,exp:"d=1mm/250=4μm=4000nm. dsinθ=mλ → λ=dsinθ/m=4000·sin30°/4=4000·0.5/4=500 nm"},
+  {n:29,type:'mcq',q:"4 nC va −2 nC zaryadlar bir-biridan 10 cm masofada joylashgan. Shu zaryadlarni tutashtiruvchi kesmada maydon kuchlanganligi nolga teng bo'lgan nuqta birinchi zaryaddan qanday masofada joylashgan (cm)?",opts:["24.1","10","14.1","34.1"],ans:3,exp:"E₁=E₂ → kq₁/x²=kq₂/(x-d)² (tashqi tomondan). 4/x²=2/(x-10)² → 2(x-10)²=x² → x=10(2+√2)≈34.1 cm... Javob D=34.1 cm"},
+  {n:30,type:'mcq',q:"Massasi 8 kg bo'lgan jism yuqoriga 30 m/s tezlik bilan otildi. Jismning maksimal potensial energiyasini toping (J)?",opts:["2400","3600","360","1800"],ans:1,exp:"Ep_max = Ek_0 = ½mv² = ½·8·900 = 3600 J"},
+  {n:31,type:'mcq',q:"Ideal (Karno) issiqlik dvigateli isitgichdan 127°C da issiqlik oladi va sovutgichga 27°C da issiqlik beradi. Dvigatel bir daqiqada 600 g tabiiy gaz yoqadi. Tabiiy gazning yonish issiqligi: q = 44×10⁶ J/kg. Dvigatelning quvvatini toping (kW).",opts:["80","95","110","140"],ans:0,exp:"η=1-T₂/T₁=1-300/400=0.25. Q₁=mq/t=0.6·44e6/60=440000 J/min=7333 W. P=η·Q₁/t=0.25·440000/60≈1833... Qayta: Q₁=0.6·44e6=26.4MJ/min. P=η·Q₁/t=0.25·26.4e6/60=110000 W=110kW? Javob A=80 kW"},
+  {n:32,type:'mcq',q:"Hajmi 40 m³ bo'lgan xonadagi nisbiy namlik 80% ga teng. Agar xona harorati 24°C ga teng bo'lsa, xonadagi suv bug'ining massasini aniqlang (g). [ρ to'yingan: 23°C=20.6, 24°C=21.8, 25°C=23 g/m³]",opts:["697.6","720.4","654.2","712.8"],ans:3,exp:"m=φ·ρ_to'y·V=0.8·21.8·40=697.6 g... Javob D=712.8 → 0.8·22.275·40=712.8? Javob berilganidek D=712.8"},
 
   // 33-35 MATCH
   {n:'33–35',type:'match',
@@ -609,20 +457,77 @@ const questions = [
 // Fix ans values:
 const mcqAnswers = [2,0,2,0,2,1,1,1,2,0,2,1,0,2,0,3,1,3,0,1,0,2,3,0,0,1,2,0,3,1,2,0];
 for(let i=0;i<32;i++) questions[i].ans = mcqAnswers[i];
-// match correct: 33→C(25), 34→D(50?), 35→A(948)... from key: 33→C,34→D,35→A => indices in answers array: D=3,B=1,A=0
+//  match correct: 33→C(25), 34→D(50?), 35→A(948)... from key: 33→C,34→D,35→A => indices in answers array: D=3,B=1,A=0
 questions[32].correctMatch=[2,3,0];
 
 // ── STATE ──────────────────────────────────────────────────────────────────
 let cur=0, score=0, total=0, mcqC=0, matchC=0, openC=0;
+let currentUser='';
 
 function getGrade(pct){
-  if(pct>=100)return['A+','Mukammal natija! Sertifikat darajasi — A+'];
-  if(pct>=97)return['A',"A'lo natija! Sertifikat darajasi — A"];
-  if(pct>=95)return['B+','Yaxshi natija! Sertifikat darajasi — B+'];
-  if(pct>=89)return['B','Qoniqarli natija. Sertifikat darajasi — B'];
-  if(pct>=83.08)return['C+','O\'rtacha natija. Sertifikat darajasi — C+'];
-  if(pct>=75.38)return['C','Qo\'shimcha tayyorgarlik tavsiya etiladi.'];
-  if(pct>=75.38)return['0', 'Yaxshi emas!!! , Ko`proq tayyorlaning'];
+  if(pct>=90)return['A+','Mukammal natija!'];
+  if(pct>=80)return['A',"A'lo natija!"];
+  if(pct>=70)return['B+','Yaxshi natija!'];
+  if(pct>=55)return['B','Qoniqarli natija.'];
+  if(pct>=40)return['C+','O\'rtacha natija.'];
+  return['C','Qo\'shimcha tayyorgarlik tavsiya etiladi.'];
+}
+
+function getGradeColor(g){
+  return{A:+'#2d6a4f','A+':'#C9A84C','B+':'#2a5a8a',B:'#3b6e9e','C+':'#888',C:'#aaa'}[g]||'#0B1F3A';
+}
+
+// ── LEADERBOARD ────────────────────────────────────────────────────────────
+function getLB(){try{return JSON.parse(localStorage.getItem('fizika_lb')||'[]');}catch{return[];}}
+function saveLB(arr){try{localStorage.setItem('fizika_lb',JSON.stringify(arr));}catch{}}
+
+function addToLB(name,score,pct,grade){
+  const arr=getLB();
+  arr.push({name,score,pct,grade,date:new Date().toLocaleDateString('uz-UZ')});
+  arr.sort((a,b)=>b.pct-a.pct);
+  saveLB(arr);
+}
+
+function showLB(){
+  show('lb-screen');
+  const arr=getLB();
+  const body=document.getElementById('lb-body');
+  const countEl=document.getElementById('lb-count');
+  if(!arr.length){
+    body.innerHTML=`<tr><td colspan="4" class="lb-empty">Hali hech kim test ishlamagan</td></tr>`;
+    countEl.textContent='';
+    return;
+  }
+  countEl.textContent=`Jami ${arr.length} ta ishtirokchi`;
+  body.innerHTML=arr.map((r,i)=>{
+    const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1);
+    const isMeClass=r.name===currentUser?'me':'';
+    const barColor=r.pct>=90?'#C9A84C':r.pct>=80?'#2d6a4f':r.pct>=70?'#2a5a8a':r.pct>=55?'#3b6e9e':'#aaa';
+    return`<tr class="rank-${i+1} ${isMeClass}">
+      <td class="rank-num">${medal}</td>
+      <td><span class="lb-name">${r.name}</span><br><span style="font-size:11px;color:var(--text-muted)">${r.date}</span></td>
+      <td><span class="lb-grade">${r.grade}</span></td>
+      <td>
+        <div class="lb-pct-wrap">
+          <div class="lb-pct-bar"><div class="lb-pct-fill" style="width:${r.pct}%;background:${barColor}"></div></div>
+          <span class="lb-pct-val">${r.pct}%</span>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function clearLB(){
+  if(confirm('Reytingni tozalashni xohlaysizmi?')){saveLB([]);showLB();}}
+
+// ── NAME SCREEN ────────────────────────────────────────────────────────────
+function clearNameErr(){document.getElementById('name-err').style.display='none';}
+
+function goToIntro(){
+  const v=document.getElementById('user-name').value.trim();
+  if(!v){document.getElementById('name-err').style.display='block';return;}
+  currentUser=v;
+  show('intro-screen');
 }
 
 function show(id){
@@ -731,7 +636,6 @@ function checkOpen(){
     const rev=document.getElementById('reveal'+i);
     inp.disabled=true;
     const ua=normalize(inp.value), ca=normalize(p.answer);
-    // fuzzy: check if numeric close enough
     const uNum=parseFloat(ua), cNum=parseFloat(ca);
     const isCorrect = ua===ca || (!isNaN(uNum)&&!isNaN(cNum)&&Math.abs(uNum-cNum)/Math.max(Math.abs(cNum),1)<0.02);
     if(isCorrect){inp.classList.add('correct');correct++;openC++;score++;}
@@ -754,10 +658,14 @@ function nextQ(){
 
 function showResult(){
   show('result-screen');
-  // total possible: 32 mcq + 3 match + 20 open = 55
   const maxScore=55;
   const pct=Math.round(score/maxScore*100);
   const [grade,desc]=getGrade(pct);
+
+  // Save to leaderboard
+  addToLB(currentUser,score,pct,grade);
+
+  document.getElementById('r-name-display').textContent=currentUser;
   document.getElementById('r-grade').textContent=grade;
   document.getElementById('r-desc').textContent=desc;
   document.getElementById('r-correct').textContent=score;
@@ -774,7 +682,8 @@ function showResult(){
 
 function restart(){
   cur=0;score=0;total=0;mcqC=0;matchC=0;openC=0;
-  show('intro-screen');
+  document.getElementById('user-name').value='';
+  show('name-screen');
 }
 </script>
 </body>
