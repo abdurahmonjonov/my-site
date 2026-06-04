@@ -6,13 +6,13 @@
 <title>Fizika — Milliy Sertifikat Testi</title>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0; }
 :root{
   --navy:#0B1F3A;--navy-mid:#1a3558;--gold:#C9A84C;--gold-light:#e8c97a;
   --cream:#FAF7F2;--cream-dark:#F0EBE0;--text:#1a1a1a;--text-muted:#6b6b6b;
   --easy:#2d6a4f;--easy-bg:#d8f3dc;--mid:#b5451b;--mid-bg:#fde8dc;--hard:#6b2d8b;--hard-bg:#ede0f5;
 }
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh; user-select: none;}
 .header{background:var(--navy);padding:20px 32px;display:flex;align-items:center;gap:16px;border-bottom:3px solid var(--gold)}
 .emblem{width:50px;height:50px;border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .header-text h1{font-family:'EB Garamond',serif;font-size:18px;color:var(--cream);letter-spacing:.04em;font-weight:500}
@@ -465,12 +465,12 @@ let cur=0, score=0, total=0, mcqC=0, matchC=0, openC=0;
 let currentUser='';
 
 function getGrade(pct){
-  if(pct>=90)return['A+','Mukammal natija!'];
-  if(pct>=80)return['A',"A'lo natija!"];
-  if(pct>=70)return['B+','Yaxshi natija!'];
-  if(pct>=55)return['B','Qoniqarli natija.'];
-  if(pct>=40)return['C+','O\'rtacha natija.'];
-  return['C','Qo\'shimcha tayyorgarlik tavsiya etiladi.'];
+  if(pct>=100)return['A+','Mukammal natija!'];
+  if(pct>=98.46)return['A',"A'lo natija!"];
+  if(pct>=93.85)return['B+','Yaxshi natija!'];
+  if(pct>=89.23)return['B','Qoniqarli natija.'];
+  if(pct>=81.54)return['C+','O\'rtacha natija.'];
+  if(pct>=75.38)return['C','Qo\'shimcha tayyorgarlik tavsiya etiladi.'];
 }
 
 function getGradeColor(g){
